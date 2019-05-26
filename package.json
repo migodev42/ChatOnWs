@@ -1,0 +1,19 @@
+{
+  "name": "chatonws",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "koa": "^2.7.0",
+    "ws": "^7.0.0"
+  },
+  "devDependencies": {
+    "mddir": "^1.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./Server/index.js",
+  },
+  "author": "",
+  "license": "ISC"
+}

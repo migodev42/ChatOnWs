@@ -1,0 +1,57 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ws Chat Room</title>
+  <style>
+    .showMsg{
+      height: 300px;
+      width: 500px;
+      overflow: hidden;
+      border: 1px solid plum;
+    }
+  </style>
+</head>
+<body>
+    <h2>欢迎来到聊天室</h2>
+    <div class="showMsg">
+      
+    </div>
+    <div class="inputMsg">
+      <input type="text" id="input">
+      <button onclick="sendMsg()">发送</button>
+    </div>
+    <!-- <script src="websocket.js">
+      console.log(1)
+    </script> -->
+    <script>
+      const ws= new WebSocket("ws://localhost:3000/Chat");
+      const wsClientPrefix='ws client: ';
+
+      ws.addEventListener('open', async ()=>{
+        console.log(wsClientPrefix,'ws 连接已建立');
+      })
+
+      ws.addEventListener('message', async (msg)=>{
+        console.log(wsClientPrefix,'ws 收到消息',msg);
+        
+        const p=document.createElement('p')
+        p.appendChild(document.createTextNode(msg.data));
+
+        document.querySelector('.showMsg').insertAdjacentElement('afterbegin',p)
+      })
+
+      function sendMsg(){
+        const inputVal=document.querySelector('#input').value;
+        const msg=JSON.stringify({
+          type:'msg',
+          value:inputVal
+        })
+        ws.send(msg)
+        document.querySelector('#input').value='';
+      }
+    </script>
+</body>
+</html>
